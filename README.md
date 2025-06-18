@@ -4,10 +4,6 @@ Este projeto é uma aplicação de e-commerce desenvolvida para demonstrar funci
 📋 Funcionalidades
 Listagem de produtos com imagem, preço e descrição
 Filtro por categoria ou busca por nome
-Adição e remoção de produtos do carrinho
-Visualização do carrinho com totalizador
-Checkout simulado
-Responsividade para dispositivos móveis
 🚀 Como rodar a aplicação localmente
 ✅ Pré-requisitos
 Node.js (versão 16 ou superior)
