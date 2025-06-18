@@ -32,5 +32,5 @@ yarn dev
 ![1](https://github.com/user-attachments/assets/7e00988c-849f-41db-807b-1073902d8090)
 
 
-Link Youtube: [https://youtu.be/AXCetxJAgjM](https://youtu.be/px97VCKQKoE)
+Link Youtube: https://youtu.be/A-c0M5TmLaM
 
