@@ -9,11 +9,14 @@
       aria-label="Buscar produtos"
     />
   </div>
+
+  
+  
 </template>
 
 <script>
 export default {
-  name: 'SearchBar',
+  name: 'NavBar',
   data() {
     return {
       search: '',
@@ -25,4 +28,6 @@ export default {
     },
   },
 };
+
+
 </script>

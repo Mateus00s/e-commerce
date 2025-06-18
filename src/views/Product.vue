@@ -1,9 +1,7 @@
 <template>
   <div>
     <header class="bg-gray-800 text-white p-4 flex justify-between items-center">
-      <h1 class="text-xl font-bold">Meu E-commerce</h1>
       <router-link to="/cart" class="relative">
-        🛒
         <span
           v-if="totalItems > 0"
           class="absolute -top-2 -right-2 bg-red-600 text-white text-xs px-2 rounded-full"
@@ -24,6 +22,7 @@
           <p class="text-sm text-gray-500 mb-2">Marca: {{ product.brand }}</p>
           <p class="text-sm text-gray-500 mb-2">Categoria: {{ product.category }}</p>
           <p class="text-sm text-yellow-500 mb-2">Avaliação: {{ product.rating }} ⭐</p>
+          <p class="text-xl font-semibold text-green-600 mb-2">Estoque: {{ product.stock }}</p>
 
           <button
             @click="addToCart(product)"
@@ -63,7 +62,7 @@ export default {
   },
   methods: {
     addToCart(product) {
-      // sua lógica para adicionar o produto ao carrinho
+      // lógica para adicionar o produto ao carrinho
       console.log('Adicionar ao carrinho:', product);
     },
   },

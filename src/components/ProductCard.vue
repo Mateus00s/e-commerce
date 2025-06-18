@@ -21,13 +21,16 @@ const goToDetails = () => {
         class="cursor-pointer flex flex-col items-center justify-between gap-3 p-4 border border-zinc-100 rounded-xl bg-zinc-50 shadow-md hover:shadow-lg transition-shadow w-full max-w-xs">
 
         <figure class="rounded-md overflow-hidden w-full relative">
-            <img :src="product.thumbnail" :alt="product.title" class="rounded-md w-full object-cover aspect-square" />
+  <img :src="product.thumbnail" :alt="product.title" class="rounded-md w-full object-cover aspect-square" />
 
-            <div v-if="product.stock >= 0" class="absolute top-2 right-2 rounded-full px-2 py-1 text-xs font-semibold"
-                :class="product.stock > 0 ? 'bg-green-500 text-zinc-100' : 'bg-red-500 text-zinc-100'">
-                {{ product.stock > 0 ? 'Em estoque' : 'Indisponível' }}
-            </div>
-        </figure>
+  <div
+    class="absolute top-2 right-2 rounded-full px-2 py-1 text-xs font-semibold"
+    :class="product.stock > 0 ? 'bg-green-500 text-zinc-100' : 'bg-red-500 text-zinc-100'"
+  >
+    {{ product.stock > 0 ? 'Em estoque' : 'Indisponível' }}
+  </div>
+</figure>
+
 
         <div class="text-center w-full px-2">
             <h2 class="text-zinc-800 font-semibold text-lg leading-snug line-clamp-2">
@@ -46,9 +49,6 @@ const goToDetails = () => {
                     R$ {{ product.price.toFixed(2).replace('.', ',') }}
                 </p>
 
-                <p v-if="product.price > 10" class="text-zinc-400 text-sm mt-1">
-                    ou 12x de R$ {{ (product.price / 12).toFixed(2).replace('.', ',') }} sem juros
-                </p>
             </div>
         </div>
 

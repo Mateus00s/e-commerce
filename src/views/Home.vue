@@ -1,10 +1,16 @@
 <template>
   <div class="max-w-7xl mx-auto px-4 py-8">
-    <h1 class="text-3xl font-extrabold mb-8 text-gray-900 text-center">Todos os Produtos</h1>
+    <h1 class="text-3xl font-extrabold mb-4 text-gray-900 text-center">Todos os Produtos</h1>
+    
+    <!-- NavBar -->
+    <NavBar @search="handleSearch" />
 
-    <!-- SearchBar -->
-    <SearchBar @search="handleSearch" />
+    <!-- Filtro de Categorias -->
+    <div class="flex justify-center my-6">
+      <DropdownFilter @filter="filtrarPorCategoria" />
+    </div>
 
+    <!-- Grade de Produtos -->
     <div
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8"
     >
@@ -49,6 +55,26 @@
         </div>
       </div>
     </div>
+
+  <div>
+    <NavBar />
+
+    <div class="container mx-auto mt-4 px-4">
+      <!-- Dropdown de Filtro -->
+      <DropdownFilter @filter="filtrarPorCategoria" />
+
+      <!-- Grid de Produtos -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-4">
+        <ProductCard
+          v-for="product in produtosFiltrados"
+          :key="product.id"
+          :product="product"
+        />
+      </div>
+    </div>
+  </div>
+
+  
 
     <!-- Paginação -->
     <nav
@@ -98,25 +124,36 @@
 <script>
 import { ref, computed, onMounted, inject } from 'vue';
 import api from '../services/api';
-import SearchBar from '../components/SearchBar.vue';
+import NavBar from '../components/NavBar.vue';
+import DropdownFilter from '../components/DropdownFilter.vue';
 
 export default {
   name: 'Home',
-  components: { SearchBar },
+  components: { NavBar, DropdownFilter },
   setup() {
     const products = ref([]);
     const addToCart = inject('addToCart');
     const searchTerm = ref('');
+    const selectedCategory = ref('');
 
     const currentPage = ref(1);
     const productsPerPage = 9;
 
-    // Filtra produtos pelo título conforme o searchTerm (case-insensitive)
+    // 👉 Aplica busca e categoria
     const filteredProducts = computed(() => {
-      if (!searchTerm.value.trim()) return products.value;
-      return products.value.filter(product =>
-        product.title.toLowerCase().includes(searchTerm.value.toLowerCase())
-      );
+      let filtered = products.value;
+
+      if (selectedCategory.value) {
+        filtered = filtered.filter(product => product.category === selectedCategory.value);
+      }
+
+      if (searchTerm.value.trim()) {
+        filtered = filtered.filter(product =>
+          product.title.toLowerCase().includes(searchTerm.value.toLowerCase())
+        );
+      }
+
+      return filtered;
     });
 
     const totalPages = computed(() =>
@@ -147,9 +184,13 @@ export default {
       }
     }
 
-    // Atualiza o termo de busca e reseta para a página 1
     function handleSearch(term) {
       searchTerm.value = term;
+      currentPage.value = 1;
+    }
+
+    function filtrarPorCategoria(categoria) {
+      selectedCategory.value = categoria;
       currentPage.value = 1;
     }
 
@@ -173,16 +214,9 @@ export default {
       prevPage,
       nextPage,
       handleSearch,
+      filtrarPorCategoria,
     };
   },
 };
 </script>
 
-<style>
-.line-clamp-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-</style>
